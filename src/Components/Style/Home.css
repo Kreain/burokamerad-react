@@ -1,0 +1,35 @@
+.Header {
+    background-color: blue;
+    height: 50px;
+}
+
+.Title {
+    /* display: inline-block; */
+    color: white;
+    float: left;
+    margin-top: 15px;
+    margin-left: 30px;
+}
+
+.LoginButton {
+    /* display: inline-block; */
+    float: right;
+    margin-top: 10px;
+    margin-right: 100px;
+    border: solid 1px white;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.LoginButton > a {
+    color: white;
+    text-decoration: none;
+}
+
+.LoginButton:hover > a {
+    text-decoration: underline;
+}
+
+.Body {
+    text-align: center;
+}
