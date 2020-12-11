@@ -1,10 +1,10 @@
-// import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import React from 'react'
 import './Style/Register.css'
 
 export default function Register() {
 
-    // const history = useHistory()
+    const history = useHistory()
     const [name, setName] = React.useState("")
     const [email, setEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
@@ -34,7 +34,7 @@ export default function Register() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const url = "http://localhost:5200/register"
+        const url = "http://localhost:7852/register"
         const header = {
             method: 'POST',
             headers: {
@@ -62,7 +62,12 @@ export default function Register() {
         .then(res => {
             if (!res.success)
                 setErrorMessage((res.reason !== undefined) ? res.reason : "Error validating")
-                console.log(res)
+            else {
+                localStorage.setItem("name", res.data.name)
+                localStorage.setItem("email", res.data.email)
+                localStorage.setItem("uuid", res.data.uuid)
+                history.push('/user')
+            }
         })
         .catch(error => console.error(error))
     }

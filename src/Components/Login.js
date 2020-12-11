@@ -1,10 +1,10 @@
-// import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import React from 'react'
 import './Style/Login.css'
 
 export default function Login() {
 
-    // const history = useHistory()
+    const history = useHistory()
     const [email, setEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
     const [errorMessage, setErrorMessage] = React.useState("")
@@ -24,7 +24,7 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const url = "http://localhost:5200/login"
+        const url = "http://localhost:7852/login"
         const header = {
             method: 'POST',
             headers: {
@@ -41,8 +41,13 @@ export default function Login() {
         .then(res => res.json())
         .then(res => {
             if (!res.success)
-                setErrorMessage("Invalid Credentials")
-                console.log(res)
+                setErrorMessage((res.reason !== undefined) ? res.reason : "Error validating")
+            else {
+                localStorage.setItem("name", res.data.name)
+                localStorage.setItem("email", res.data.email)
+                localStorage.setItem("uuid", res.data.uuid)
+                history.push('/user')
+            }
         })
         .catch(error => console.error(error))
     }
